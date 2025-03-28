@@ -26,6 +26,11 @@
 </head>
 
 <body>
+    <?php
+    $minutes = isset($duration) ? intval($duration) : 25;
+    $totalSeconds = $minutes * 60;
+    ?>
+
     <div class="frame">
         <div class="inner p-0">
             <!-- HEADER -->
@@ -47,22 +52,18 @@
             </div>
 
             <!-- CONTENT -->
-            <form action="<?= base_url('timer-on') ?>" method="POST">
-                <div class="d-grid gap-150 justify-center p-95">
-                    <div class="d-grid gap-24">
-                        <div class="fs-32 fw-600 lh-24 c-42 text-center">Timer Mode</div>
-                        <div class="clock-container">
-                            <input type="number" name="duration" class="clock" id="duration" min="1" value="25"
-                                required>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-center">
-                        <button type="submit" class="d-flex align-center justify-center h-40p w-200p rounded-30 b-42 c-f4 fs-18 fw-600 
-                            transform-min transition-ease border-none p-0 ff-c pointer">Start to Focus</button>
+            <div class="d-grid gap-150 justify-center p-95">
+                <div class="d-grid gap-24">
+                    <div class="fs-32 fw-600 lh-24 c-42 text-center">Timer Mode</div>
+                    <div class="clock-container">
+                        <input type="text" id="timer" class="clock" value="<?= gmdate("H:i:s", $totalSeconds) ?>">
                     </div>
                 </div>
-            </form>
-
+                <div class="d-flex justify-center">
+                    <a href="/flow/focus-mode" class="d-flex align-center justify-center h-40p w-200p rounded-30 b-42 c-f4 fs-18 fw-600 
+                        transform-min transition-ease border-none p-0 ff-c pointer">Reset</a>
+                </div>
+            </div>
         </div>
 
 
@@ -82,6 +83,36 @@
             </a>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let totalSeconds = <?= $totalSeconds ?>;
+            let timerInput = document.getElementById("timer");
+
+            function startCountdown() {
+                let countdown = setInterval(() => {
+                    if (totalSeconds <= 0) {
+                        clearInterval(countdown);
+                        alert("Time's up!");
+                        return;
+                    }
+
+                    totalSeconds--;
+
+                    let hours = Math.floor(totalSeconds / 3600);
+                    let minutes = Math.floor((totalSeconds % 3600) / 60);
+                    let seconds = totalSeconds % 60;
+
+                    timerInput.value =
+                        String(hours).padStart(2, '0') + ":" +
+                        String(minutes).padStart(2, '0') + ":" +
+                        String(seconds).padStart(2, '0');
+                }, 1000);
+            }
+            startCountdown();
+        });
+    </script>
+
 </body>
 
 </html>

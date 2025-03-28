@@ -48,7 +48,7 @@
                             <option>~ Solitare event</option>
                             <option>~ Lunch + Break</option>
                         </select>
-                        <a href="/"
+                        <a href="/flow/focus-mode"
                             class="w-175p b-42 py-10 rounded-30 fs-14 c-f4 lh-16 text-center transform-min transition-ease">Focus
                             mode</a>
                     </div>

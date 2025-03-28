@@ -22,3 +22,6 @@ $routes->view('/flow/notes-imk', 'flow/notes-imk');
 $routes->view('/flow/podomoro-mode', 'flow/podomoro-mode');
 $routes->view('/flow/schedule-overview', 'flow/schedule-overview');
 $routes->view('/flow/notes-structure-plane', 'flow/notes-structure-plane');
+
+$routes->get('/flow/focus-mode', 'TimerController::index');
+$routes->post('/flow/timer-on', 'TimerController::countdown');
